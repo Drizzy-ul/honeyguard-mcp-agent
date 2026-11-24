@@ -1,9 +1,9 @@
 """OWASP LLM Top-10 guardrails for HoneyGuard agent input/output.
 
 Implements defenses against:
-- LLM01: Prompt Injection — detect and reject malicious instruction injection
-- LLM02: Insecure Output Handling — sanitise LLM outputs before use
-- LLM06: Sensitive Information Disclosure — scrub PII / internal paths
+- LLM01: Prompt Injection -- detect and reject malicious instruction injection
+- LLM02: Insecure Output Handling -- sanitise LLM outputs before use
+- LLM06: Sensitive Information Disclosure -- scrub PII and internal paths
 """
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ _INJECTION_PATTERNS: list[re.Pattern] = [
 _PII_PATTERNS: list[tuple[re.Pattern, str]] = [
     # Email addresses
     (re.compile(r"\b[\w.+-]+@[\w-]+\.[a-zA-Z]{2,}\b"), "[REDACTED_EMAIL]"),
-    # Private RFC-1918 IPs (not threat IPs — those are intentional)
+    # Private RFC-1918 IPs (not threat IPs -- those are intentional)
     (re.compile(r"\b10\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"), "[INTERNAL_IP]"),
     (re.compile(r"\b192\.168\.\d{1,3}\.\d{1,3}\b"), "[INTERNAL_IP]"),
     # API keys / tokens (generic pattern)

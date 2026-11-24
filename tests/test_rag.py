@@ -1,4 +1,4 @@
-"""Tests for RAG retriever (uses ChromaDB EphemeralClient — no network)."""
+"""Tests for RAG retriever (uses ChromaDB EphemeralClient -- no network)."""
 import pytest
 
 from rag.retriever import TechniqueRetriever

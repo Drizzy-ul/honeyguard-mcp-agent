@@ -4,7 +4,6 @@ from __future__ import annotations
 import re
 
 import fastmcp
-from pydantic import BaseModel, Field
 
 from rag.retriever import TechniqueRetriever
 from schemas.models import IPReputationResult, FirewallRule
@@ -27,17 +26,16 @@ def lookup_ip_reputation(ip: str) -> IPReputationResult:
     """Look up an IP address in threat-intel feeds and return a reputation score.
 
     Args:
-        ip: IPv4 address to look up (e.g. '192.168.1.100').
+        ip: IPv4 address to look up (e.g. '203.0.113.42').
 
     Returns:
         IPReputationResult with score, tags, and abuse confidence.
     """
-    # Validate IPv4 format
     pattern = r"^(\d{1,3}\.){3}\d{1,3}$"
     if not re.match(pattern, ip):
         raise ValueError(f"Invalid IPv4 address: {ip!r}")
 
-    # Deterministic stub — in production, call AbuseIPDB / VirusTotal APIs
+    # Deterministic stub -- in production, call AbuseIPDB / VirusTotal APIs
     octets = list(map(int, ip.split(".")))
     score = min(100, (octets[0] + octets[3]) % 101)
     is_malicious = score >= 70
